@@ -1,3 +1,6 @@
+# Claude Code session files
+.claude/
+
 # Dependencies
 node_modules/
 .pnp

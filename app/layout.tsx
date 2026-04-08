@@ -17,12 +17,12 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Nguyen Nghiem Thanh — Software Engineer',
+  title: 'N Thanh — Fullstack Software Engineer',
   description:
-    'Senior Software Engineer with 8+ years of experience in frontend performance optimization, scalable architectures, and fullstack development.',
+    'Senior Fullstack Software Engineer with 8+ years of experience in frontend performance optimization, scalable architectures, and fullstack development.',
   keywords: [
     'Software Engineer',
-    'Frontend Developer',
+    'Fullstack Developer',
     'React',
     'Next.js',
     'TypeScript',
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Nguyen Nghiem Thanh' }],
   openGraph: {
-    title: 'Nguyen Nghiem Thanh — Software Engineer',
+    title: 'N Thanh — Fullstack Software Engineer',
     description:
-      'Performance-focused Software Engineer specializing in React, Next.js, and enterprise architectures.',
+      'Performance-focused Fullstack Engineer specializing in React, Next.js, and enterprise architectures.',
     type: 'website',
   },
 }

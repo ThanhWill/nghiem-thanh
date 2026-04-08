@@ -36,19 +36,26 @@ export function Navigation() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="container flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8">
+      <nav className="relative flex items-center justify-between h-14 px-4 sm:px-8 lg:px-16 xl:px-24 2xl:px-32">
         {/* Logo */}
         <button
           type="button"
-          className="font-mono text-sm font-bold tracking-tight hover:opacity-80 transition-opacity"
+          className="flex items-center gap-1.5 hover:opacity-80 transition-opacity flex-shrink-0"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <span className="text-[color:var(--text)]">NGUYEN</span>
-          <span style={{ color: 'var(--accent)' }}>THANH</span>
+          <span
+            className="w-7 h-7 rounded-md flex items-center justify-center font-mono font-bold text-xs"
+            style={{ background: 'var(--accent)', color: '#07090a' }}
+          >
+            NT
+          </span>
+          <span className="font-mono text-sm font-semibold tracking-wide text-[color:var(--text)]">
+            nghiem<span style={{ color: 'var(--accent)' }}>.</span>thanh
+          </span>
         </button>
 
-        {/* Desktop nav links */}
-        <ul className="hidden md:flex items-center gap-1">
+        {/* Desktop nav links — absolutely centered */}
+        <ul className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             <li key={link.href}>
               <button
@@ -63,7 +70,7 @@ export function Navigation() {
         </ul>
 
         {/* Right: social + CTA */}
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-2 flex-shrink-0">
           <a
             href={personalInfo.linkedin}
             target="_blank"

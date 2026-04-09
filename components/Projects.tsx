@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { projects, type Project } from '@/lib/data'
 import { ProjectDiagram } from './ProjectDiagrams'
@@ -164,11 +164,18 @@ function ProjectCard({
 export function Projects() {
   const { ref, isInView } = useInView<HTMLElement>()
   const [selectedId, setSelectedId] = useState<string | null>('ecommerce')
+  const detailRef = useRef<HTMLDivElement>(null)
 
   const selectedProject = projects.find((p) => p.id === selectedId) ?? null
 
   const handleSelect = (id: string) => {
-    setSelectedId(prev => prev === id ? null : id)
+    const isDeselect = selectedId === id
+    setSelectedId(isDeselect ? null : id)
+    if (!isDeselect) {
+      setTimeout(() => {
+        detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 50)
+    }
   }
 
   return (
@@ -210,7 +217,7 @@ export function Projects() {
 
           {/* Right: Detail panel — key forces remount so animation replays on each project switch */}
           {selectedProject && (
-            <div className={`lg:col-span-3 transition-all duration-700 delay-200 ${
+            <div ref={detailRef} className={`lg:col-span-3 transition-all duration-700 delay-200 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <ProjectDetail
                 key={selectedId}

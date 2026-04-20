@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { Providers } from '@/components/Providers'
 import { AnimatedBackground } from '@/components/AnimatedBackground'
 import './globals.css'
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} dark`}
+      className={`${dmSans.variable} ${jetbrainsMono.variable} dark`}
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-[color:var(--bg)] text-[color:var(--text)] transition-colors duration-300">

@@ -2,7 +2,7 @@ export const personalInfo = {
   name: 'Nguyen Nghiem Thanh',
   role: 'I build enterprise web platforms that perform — from UI to cloud.',
   tagline: 'Delivered B2B & B2C platforms for Toyota, cut load times by 60% across production systems.',
-  comment: 'React · Angular · Node · Azure',
+  comment: 'React · Angular  /  Node · Python · Java  /  Azure · SAP',
   description:
     'Senior Full-Stack Engineer with 8+ years building scalable web platforms across e-commerce, B2B, and SaaS domains. Specialized in React/Next.js/Angular frontends and Python/Node.js/Java backends with production experience on enterprise systems for Toyota Motor Philippines. Led frontend migrations, SAP Hybris integrations, and headless commerce architecture.',
   email: 'thanh029023@gmail.com',

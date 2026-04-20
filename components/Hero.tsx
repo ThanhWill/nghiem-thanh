@@ -8,7 +8,7 @@ import { StarField } from './StarField'
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden" style={{ background: '#07090a' }}>
+    <section className="relative min-h-screen overflow-hidden" style={{ background: 'var(--bg)' }}>
 
       {/* Starfield background */}
       <StarField />
@@ -18,14 +18,14 @@ export function Hero() {
         <div className="relative" style={{ width: 'min(500px, 42vw)', height: 'min(500px, 42vw)' }}>
           {/* Outer diffused glow layers */}
           <div className="absolute rounded-full pointer-events-none"
-            style={{ inset: '-20px', background: 'radial-gradient(circle, rgba(0,230,118,0.22) 0%, transparent 70%)', filter: 'blur(18px)' }} />
+            style={{ inset: '-20px', background: 'radial-gradient(circle, rgba(245,158,11,0.18) 0%, transparent 70%)', filter: 'blur(18px)' }} />
           <div className="absolute rounded-full pointer-events-none"
-            style={{ inset: '-6px', background: 'radial-gradient(circle, rgba(0,230,118,0.12) 0%, transparent 65%)', filter: 'blur(8px)' }} />
+            style={{ inset: '-6px', background: 'radial-gradient(circle, rgba(245,158,11,0.10) 0%, transparent 65%)', filter: 'blur(8px)' }} />
           {/* Circle frame */}
           <div className="absolute inset-0 rounded-full overflow-hidden"
             style={{
-              border: '2.5px solid rgba(0,230,118,0.55)',
-              boxShadow: '0 0 32px rgba(0,230,118,0.45), 0 0 80px rgba(0,230,118,0.2), 0 0 140px rgba(0,230,118,0.08)',
+              border: '2px solid rgba(255,255,255,0.75)',
+              boxShadow: '0 0 0 6px rgba(245,158,11,0.12), 0 0 40px rgba(245,158,11,0.35), 0 0 100px rgba(245,158,11,0.15)',
             }}>
             <Image
               src={personalInfo.avatarUrl}
@@ -42,10 +42,10 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Accent orb — green glow bottom-left */}
+      {/* Accent orb */}
       <div className="absolute z-0 w-[700px] h-[700px] top-[-150px] left-[-250px] rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(0,230,118,0.07), transparent 70%)',
+          background: 'radial-gradient(circle, rgba(245,158,11,0.06), transparent 70%)',
           filter: 'blur(80px)',
         }} />
 
@@ -77,7 +77,7 @@ export function Hero() {
           {/* TECH — single clean line */}
           <p className="animate-fade-up opacity-0 animate-delay-400 mt-7 font-mono text-sm"
             style={{ color: 'var(--accent)', opacity: 0.8 }}>
-            React · Angular · Node · Azure
+            React · Angular&nbsp;&nbsp;/&nbsp;&nbsp;Node · Python · Java&nbsp;&nbsp;/&nbsp;&nbsp;Azure · SAP
           </p>
 
           {/* CTAs — clear breathing room above */}

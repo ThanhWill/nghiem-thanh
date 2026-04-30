@@ -91,19 +91,27 @@ export function Contact() {
           })}
         </div>
 
-        {/* Download CV */}
+        {/* Download CV — both formats */}
         <div
-          className={`flex justify-center transition-all duration-700 delay-500 ${
+          className={`flex flex-wrap justify-center gap-4 transition-all duration-700 delay-500 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
           <a
             href={personalInfo.cvPdf}
-            download
+            download="Nguyen-Nghiem-Thanh-CV.pdf"
             className="btn-primary text-base px-8 py-4"
           >
             <Download size={18} />
-            Download Full CV
+            Download PDF CV
+          </a>
+          <a
+            href={personalInfo.cvDocx}
+            download="Nguyen-Nghiem-Thanh-CV.docx"
+            className="btn-outline text-base px-8 py-4"
+          >
+            <Download size={18} />
+            Download Word CV
           </a>
         </div>
       </div>

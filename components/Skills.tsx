@@ -31,7 +31,7 @@ export function Skills() {
     <section
       id="skills"
       ref={ref as React.RefObject<HTMLElement>}
-      className="section-padding"
+      className="section-padding book-page"
     >
       <div className="container-max">
         {/* Header */}

@@ -2,27 +2,6 @@
 
 import { useEffect, useRef } from 'react'
 
-interface Star {
-  x: number
-  y: number
-  size: number
-  opacity: number
-  speed: number
-  phase: number
-}
-
-interface Meteor {
-  x: number
-  y: number
-  len: number
-  angle: number
-  speed: number
-  opacity: number
-  active: boolean
-  timer: number
-  interval: number
-}
-
 export function StarField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -32,42 +11,39 @@ export function StarField() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    let animId: number
-
     if (globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
 
+    let animId: number
+
     const resize = () => {
-      canvas.width = window.innerWidth
+      canvas.width  = canvas.parentElement?.clientWidth  ?? window.innerWidth
       canvas.height = canvas.parentElement?.clientHeight ?? window.innerHeight
     }
     resize()
     window.addEventListener('resize', resize)
 
-    // Stars
-    const stars: Star[] = Array.from({ length: 180 }, () => ({
+    // Very subtle floating dots — visible on white background
+    const DOT_COLORS = [
+      'rgba(5,150,105,',   // emerald-600
+      'rgba(16,185,129,',  // emerald-500
+      'rgba(52,211,153,',  // emerald-400
+      'rgba(100,116,139,', // slate-500
+    ]
+
+    const dots = Array.from({ length: 60 }, () => ({
       x: Math.random(),
       y: Math.random(),
-      size: Math.random() * 1.4 + 0.2,
-      opacity: Math.random() * 0.55 + 0.2,
-      speed: Math.random() * 0.015 + 0.004,
+      r: Math.random() * 1.8 + 0.4,
+      vx: (Math.random() - 0.5) * 0.025,
+      vy: (Math.random() - 0.5) * 0.018,
+      opacity: Math.random() * 0.18 + 0.06,
       phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.008 + 0.003,
+      color: DOT_COLORS[Math.floor(Math.random() * DOT_COLORS.length)],
     }))
 
-    // Meteors
-    const meteors: Meteor[] = Array.from({ length: 3 }, (_, i) => ({
-      x: 0, y: 0, len: 0, angle: -Math.PI / 5,
-      speed: 0, opacity: 0, active: false,
-      timer: 0, interval: 180 + i * 240,
-    }))
-
-    const spawnMeteor = (m: Meteor, w: number) => {
-      m.x = Math.random() * w * 0.7 + w * 0.1
-      m.y = Math.random() * 80
-      m.len = Math.random() * 120 + 60
-      m.speed = Math.random() * 8 + 6
-      m.opacity = 1
-      m.active = true
-    }
+    // Subtle connection lines between nearby dots
+    const MAX_DIST = 0.14 // fraction of canvas width
 
     let t = 0
     const draw = () => {
@@ -75,53 +51,39 @@ export function StarField() {
       ctx.clearRect(0, 0, w, h)
       t++
 
-      // Draw stars
-      stars.forEach(s => {
-        const o = s.opacity + Math.sin(t * s.speed + s.phase) * 0.18
-        ctx.beginPath()
-        ctx.arc(s.x * w, s.y * h, s.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255,255,255,${Math.max(0.05, Math.min(0.9, o))})`
-        ctx.fill()
-      })
-
-      // Draw meteors
-      meteors.forEach(m => {
-        m.timer++
-        if (!m.active && m.timer >= m.interval) {
-          spawnMeteor(m, w)
-          m.timer = 0
-        }
-        if (m.active) {
-          const dx = Math.cos(m.angle) * m.speed
-          const dy = Math.sin(m.angle) * m.speed * 0.6
-          m.x += dx
-          m.y += dy
-          m.opacity -= 0.022
-
-          if (m.opacity <= 0 || m.x > w || m.y > h) {
-            m.active = false
-            m.timer = 0
+      // Connection lines
+      for (let i = 0; i < dots.length; i++) {
+        for (let j = i + 1; j < dots.length; j++) {
+          const a = dots[i], b = dots[j]
+          const dx = (a.x - b.x) * w
+          const dy = (a.y - b.y) * h
+          const dist = Math.hypot(dx, dy) / w
+          if (dist < MAX_DIST) {
+            const alpha = (1 - dist / MAX_DIST) * 0.06
+            ctx.beginPath()
+            ctx.moveTo(a.x * w, a.y * h)
+            ctx.lineTo(b.x * w, b.y * h)
+            ctx.strokeStyle = `rgba(5,150,105,${alpha.toFixed(3)})`
+            ctx.lineWidth = 0.5
+            ctx.stroke()
           }
-
-          const grad = ctx.createLinearGradient(
-            m.x, m.y,
-            m.x - Math.cos(m.angle) * m.len,
-            m.y - Math.sin(m.angle) * m.len * 0.6,
-          )
-          grad.addColorStop(0, `rgba(255,255,255,${m.opacity})`)
-          grad.addColorStop(1, 'rgba(255,255,255,0)')
-
-          ctx.beginPath()
-          ctx.moveTo(m.x, m.y)
-          ctx.lineTo(
-            m.x - Math.cos(m.angle) * m.len,
-            m.y - Math.sin(m.angle) * m.len * 0.6,
-          )
-          ctx.strokeStyle = grad
-          ctx.lineWidth = 1.5
-          ctx.stroke()
         }
-      })
+      }
+
+      // Dots
+      for (const d of dots) {
+        d.x += d.vx / w * 10
+        d.y += d.vy / h * 10
+        d.phase += d.speed
+        if (d.x < 0) { d.x = 1 } else if (d.x > 1) { d.x = 0 }
+        if (d.y < 0) { d.y = 1 } else if (d.y > 1) { d.y = 0 }
+
+        const o = d.opacity * (0.7 + Math.sin(d.phase) * 0.3)
+        ctx.beginPath()
+        ctx.arc(d.x * w, d.y * h, d.r, 0, Math.PI * 2)
+        ctx.fillStyle = `${d.color}${o.toFixed(3)})`
+        ctx.fill()
+      }
 
       animId = requestAnimationFrame(draw)
     }
@@ -136,7 +98,6 @@ export function StarField() {
   return (
     <canvas
       ref={canvasRef}
-
       className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ zIndex: 0 }}
     />

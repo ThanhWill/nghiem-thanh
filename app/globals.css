@@ -4,31 +4,31 @@
 
 @layer base {
   :root {
-    --bg: #f6f8fa;
-    --bg-secondary: #eef1f5;
-    --text: #0d1117;
-    --text-muted: #57606a;
-    --border: rgba(217, 119, 6, 0.15);
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --card-border: rgba(217, 119, 6, 0.2);
-    --accent: #d97706;
-    --accent-dim: rgba(217, 119, 6, 0.08);
+    --bg: #ffffff;
+    --bg-secondary: #f8fafb;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: rgba(5, 150, 105, 0.12);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-border: rgba(5, 150, 105, 0.15);
+    --accent: #059669;
+    --accent-dim: rgba(5, 150, 105, 0.08);
     --btn-text: #ffffff;
-    --dot-color: rgba(217, 119, 6, 0.07);
+    --dot-color: rgba(5, 150, 105, 0.06);
   }
 
   .dark {
-    --bg: #0c0900;
-    --bg-secondary: #100d02;
-    --text: #f1f5f9;
-    --text-muted: #94a3b8;
-    --border: rgba(245, 158, 11, 0.12);
-    --card-bg: rgba(245, 158, 11, 0.03);
-    --card-border: rgba(245, 158, 11, 0.14);
-    --accent: #f59e0b;
-    --accent-dim: rgba(245, 158, 11, 0.09);
-    --btn-text: #07090a;
-    --dot-color: rgba(245, 158, 11, 0.04);
+    --bg: #0a1f12;
+    --bg-secondary: #0f2d1a;
+    --text: #f0fdf4;
+    --text-muted: #86efac;
+    --border: rgba(5, 150, 105, 0.18);
+    --card-bg: rgba(5, 150, 105, 0.06);
+    --card-border: rgba(5, 150, 105, 0.18);
+    --accent: #00b14f;
+    --accent-dim: rgba(5, 150, 105, 0.12);
+    --btn-text: #ffffff;
+    --dot-color: rgba(5, 150, 105, 0.06);
   }
 
   html {
@@ -37,7 +37,7 @@
     color: var(--text);
   }
 
-  /* Warm ambient background */
+  /* Subtle emerald ambient tints */
   body::before {
     content: '';
     position: fixed;
@@ -45,12 +45,11 @@
     pointer-events: none;
     z-index: 0;
     background:
-      radial-gradient(ellipse 90% 60% at 0% 0%, rgba(245,158,11,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 70% 50% at 100% 100%, rgba(245,158,11,0.14) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 40% at 80% 10%, rgba(251,191,36,0.08) 0%, transparent 50%);
+      radial-gradient(ellipse 80% 50% at 0% 0%, rgba(5,150,105,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(5,150,105,0.05) 0%, transparent 55%);
   }
 
-  /* Subtle warm grid lines */
+  /* Very subtle grid lines */
   body::after {
     content: '';
     position: fixed;
@@ -58,8 +57,8 @@
     pointer-events: none;
     z-index: 0;
     background-image:
-      linear-gradient(rgba(245,158,11,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(245,158,11,0.06) 1px, transparent 1px);
+      linear-gradient(rgba(5,150,105,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(5,150,105,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 120% 80% at 50% 0%, black 40%, transparent 85%);
     -webkit-mask-image: radial-gradient(ellipse 120% 80% at 50% 0%, black 40%, transparent 85%);
@@ -71,18 +70,18 @@
   }
 
   ::selection {
-    background: rgba(245, 158, 11, 0.2);
+    background: rgba(5, 150, 105, 0.25);
     color: inherit;
   }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: rgba(245, 158, 11, 0.3);
+    background: rgba(5, 150, 105, 0.4);
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(245, 158, 11, 0.6);
+    background: rgba(5, 150, 105, 0.7);
   }
 }
 
@@ -114,7 +113,8 @@
   }
 
   .section-padding {
-    @apply py-10;
+    /* pt-20 (80px) clears the fixed 56px nav bar; pb-10 clears the book bar */
+    @apply pt-20 pb-10;
   }
 
   /* Desktop readability floor — laptop/PC screens */
@@ -175,7 +175,7 @@
   }
   .btn-outline:hover {
     background: var(--accent-dim);
-    box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 16px rgba(5, 150, 105, 0.25);
   }
 
   .card {
@@ -185,7 +185,7 @@
   }
   .card:hover {
     border-color: var(--accent);
-    box-shadow: 0 8px 32px rgba(245, 158, 11, 0.08);
+    box-shadow: 0 8px 32px rgba(5, 150, 105, 0.12);
   }
 
   /* Section title style: large prose heading used in Skills, Experience, Contact */
@@ -224,6 +224,44 @@
 }
 
 @layer utilities {
+  /* Book page — base style for all slides */
+  .book-page {
+    min-height: 100vh;
+    /* Bottom padding clears the 48px navigation bar */
+    padding-bottom: 60px;
+  }
+
+  /* ── Page-flip animations ── */
+  .book-exit-fwd {
+    animation: bookExitFwd 0.42s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .book-enter-fwd {
+    animation: bookEnterFwd 0.48s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .book-exit-bwd {
+    animation: bookExitBwd 0.42s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .book-enter-bwd {
+    animation: bookEnterBwd 0.48s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes bookExitFwd {
+    from { transform: translateX(0)    scale(1);    opacity: 1; }
+    to   { transform: translateX(-5%)  scale(0.97); opacity: 0; }
+  }
+  @keyframes bookEnterFwd {
+    from { transform: translateX(5%)   scale(0.97); opacity: 0; }
+    to   { transform: translateX(0)    scale(1);    opacity: 1; }
+  }
+  @keyframes bookExitBwd {
+    from { transform: translateX(0)    scale(1);    opacity: 1; }
+    to   { transform: translateX(5%)   scale(0.97); opacity: 0; }
+  }
+  @keyframes bookEnterBwd {
+    from { transform: translateX(-5%)  scale(0.97); opacity: 0; }
+    to   { transform: translateX(0)    scale(1);    opacity: 1; }
+  }
+
   .animate-delay-100 { animation-delay: 100ms; }
   .animate-delay-200 { animation-delay: 200ms; }
   .animate-delay-300 { animation-delay: 300ms; }
@@ -245,8 +283,8 @@
       0deg,
       transparent,
       transparent 2px,
-      rgba(245, 158, 11, 0.01) 2px,
-      rgba(245, 158, 11, 0.01) 4px
+      rgba(74, 222, 128, 0.01) 2px,
+      rgba(74, 222, 128, 0.01) 4px
     );
     pointer-events: none;
   }

@@ -145,7 +145,7 @@ export function EcommerceDiagram() {
           <Box icon={Shield} label="API Gateway" sublabel="Auth · Routing · Rate Limit" color="#7c3aed" wide />
           <BranchDown slots={3} />
           <Row gap={2}>
-            <Box icon={Server} label="Product"  sublabel="Spring Boot" color="#f89820" small />
+            <Box icon={Server} label="Product"  sublabel="Spring Boot" color="#16a34a" small />
             <Box icon={Server} label="Payment"  sublabel="T-Wallet"    color="#ef4444" small />
             <Box icon={Server} label="Inventory" sublabel="Spring Boot" color="#0ea5e9" small />
           </Row>
@@ -154,7 +154,7 @@ export function EcommerceDiagram() {
       <Section label="Event Bus" />
       <Box icon={MessageSquare} label="RabbitMQ" sublabel="Lightweight Message Broker" color="#ff6600" wide />
       <ArrowDown label="ETL · Transform" />
-      <Box icon={Workflow} label="Apache Camel" sublabel="Data Integration Layer" color="#d97706" wide />
+      <Box icon={Workflow} label="Apache Camel" sublabel="Data Integration Layer" color="#16a34a" wide />
       <BranchDown slots={4} />
       <Row gap={2}>
         <Box icon={Database}  label="SAP DBM"    sublabel="Vehicles"  color="#0070f3" small />
@@ -186,14 +186,14 @@ export function ToyotaDiagram() {
       <Section label="SAP Hybris Commerce — Java / Spring" />
       <div className="flex flex-wrap gap-1.5 justify-center max-w-[360px] mb-1">
         {['/occ/v2/tmp/*', '/tmpocc/*', '/tmpwebservices/*', '/authorizationserver'].map(p => (
-          <span key={p} className="text-[8px] font-mono px-1.5 py-0.5 rounded border border-orange-500/30 text-orange-400 bg-orange-500/8">{p}</span>
+          <span key={p} className="text-[8px] font-mono px-1.5 py-0.5 rounded border border-green-500/30 text-green-600 bg-green-500/8">{p}</span>
         ))}
       </div>
       <BranchDown slots={3} />
       <Row gap={2}>
-        <Box icon={Layers}   label="tmpcore · tmpfacades"          sublabel="Domain models · Business logic" color="#f89820" wide />
-        <Box icon={Server}   label="tmpocc · tmpwebservices"       sublabel="OCC API · Custom endpoints"     color="#f59e0b" wide />
-        <Box icon={HardDrive} label="tmppayment · tmpordermgmt"   sublabel="Payment · Order fulfillment"    color="#fb923c" wide />
+        <Box icon={Layers}   label="tmpcore · tmpfacades"          sublabel="Domain models · Business logic" color="#16a34a" wide />
+        <Box icon={Server}   label="tmpocc · tmpwebservices"       sublabel="OCC API · Custom endpoints"     color="#15803d" wide />
+        <Box icon={HardDrive} label="tmppayment · tmpordermgmt"   sublabel="Payment · Order fulfillment"    color="#4ade80" wide />
       </Row>
       <ArrowDown label="Integrations" />
 
@@ -217,7 +217,7 @@ export function ToyotaDiagram() {
       <BranchDown slots={3} />
       <Row gap={2}>
         <Box icon={Package} label="DEV"  sublabel="cloud-development" color="#22c55e" small />
-        <Box icon={Package} label="STG"  sublabel="cloud-staging"     color="#f59e0b" small />
+        <Box icon={Package} label="STG"  sublabel="cloud-staging"     color="#0d9488" small />
         <Box icon={Package} label="PROD" sublabel="cloud-production"  color="#ef4444" small />
       </Row>
     </div>

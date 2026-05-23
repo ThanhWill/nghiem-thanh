@@ -1,215 +1,275 @@
 'use client'
 
 import Image from 'next/image'
-import { Linkedin, Download } from 'lucide-react'
+import { Linkedin, Download, Mail, ArrowRight } from 'lucide-react'
+import { personalInfo, stats, skills } from '@/lib/data'
+import { useBook } from './BookContext'
 import { GitHubIcon } from './icons'
-import { personalInfo, stats } from '@/lib/data'
-import { StarField } from './StarField'
 
-function AvatarWithOrbit({ style, imgSizes }: { style?: React.CSSProperties; imgSizes?: string }) {
-  return (
-    <div className="relative" style={style}>
-      {/* Outer diffused glow */}
-      <div className="absolute rounded-full pointer-events-none"
-        style={{ inset: '-20px', background: 'radial-gradient(circle, rgba(245,158,11,0.18) 0%, transparent 70%)', filter: 'blur(18px)' }} />
+const skillCategories = [
+  { icon: '🎨', label: 'Frontend',  key: 'frontend' as const },
+  { icon: '⚙️', label: 'Backend',   key: 'backend'  as const },
+  { icon: '🛠️', label: 'Tools',     key: 'tools'    as const },
+]
 
-      {/* Orbit ring 1 — main dashed ring, clockwise, white + amber glow */}
-      <svg
-        className="absolute pointer-events-none"
-        style={{
-          inset: '-14px',
-          width: 'calc(100% + 28px)',
-          height: 'calc(100% + 28px)',
-          animation: 'orbitCW 22s linear infinite',
-          filter: 'drop-shadow(0 0 5px rgba(245,158,11,0.9)) drop-shadow(0 0 12px rgba(245,158,11,0.5))',
-        }}
-        viewBox="0 0 100 100"
-      >
-        <circle cx="50" cy="50" r="47" fill="none"
-          stroke="rgba(255,255,255,0.88)" strokeWidth="1.1"
-          strokeDasharray="11 11" strokeLinecap="round" />
-      </svg>
-
-      {/* Orbit ring 2 — inner faint amber ring, counter-clockwise */}
-      <svg
-        className="absolute pointer-events-none"
-        style={{
-          inset: '-5px',
-          width: 'calc(100% + 10px)',
-          height: 'calc(100% + 10px)',
-          animation: 'orbitCCW 34s linear infinite',
-          filter: 'drop-shadow(0 0 3px rgba(245,158,11,0.6))',
-        }}
-        viewBox="0 0 100 100"
-      >
-        <circle cx="50" cy="50" r="47" fill="none"
-          stroke="rgba(245,158,11,0.45)" strokeWidth="0.6"
-          strokeDasharray="5 20" strokeLinecap="round" />
-      </svg>
-
-      {/* Inner glow */}
-      <div className="absolute rounded-full pointer-events-none"
-        style={{ inset: '-6px', background: 'radial-gradient(circle, rgba(245,158,11,0.10) 0%, transparent 65%)', filter: 'blur(8px)' }} />
-
-      {/* Circle frame */}
-      <div className="absolute inset-0 rounded-full overflow-hidden"
-        style={{
-          border: '2px solid rgba(255,255,255,0.75)',
-          boxShadow: '0 0 0 6px rgba(245,158,11,0.12), 0 0 40px rgba(245,158,11,0.35), 0 0 100px rgba(245,158,11,0.15)',
-        }}>
-        <Image
-          src={personalInfo.avatarUrl}
-          alt="Nguyen Nghiem Thanh"
-          fill
-          className="object-cover object-top"
-          priority
-          sizes={imgSizes || '42vw'}
-        />
-      </div>
-
-      {/* Bottom inner shadow */}
-      <div className="absolute inset-x-0 bottom-0 h-1/4 rounded-b-full pointer-events-none"
-        style={{ background: 'linear-gradient(to top, rgba(7,9,10,0.45), transparent)' }} />
-    </div>
-  )
-}
+const contactLinks = [
+  { Icon: Mail,       label: 'Email',    sub: personalInfo.email,     href: `mailto:${personalInfo.email}`, external: false },
+  { Icon: GitHubIcon, label: 'GitHub',   sub: 'github.com/ThanhWill',  href: personalInfo.github,           external: true  },
+  { Icon: Linkedin,   label: 'LinkedIn', sub: 'willson29996',          href: personalInfo.linkedin,         external: true  },
+]
 
 export function Hero() {
+  const { navigate, current } = useBook()
+
   return (
-    <section className="relative min-h-screen overflow-hidden" style={{ background: 'var(--bg)' }}>
+    <section
+      id="hero"
+      style={{
+        height: 'calc(100vh - 48px)',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#ffffff',
+      }}
+    >
+      {/* Top accent */}
+      <div style={{ height: 4, flexShrink: 0, background: 'linear-gradient(90deg, #059669 0%, #34d399 100%)' }} />
 
-      <StarField />
+      {/* Body */}
+      <div style={{ flex: 1, display: 'flex', minHeight: 0 }}>
 
-      {/* Desktop avatar — right panel */}
-      <div className="hidden lg:flex absolute right-0 top-0 h-full w-[44%] z-0 items-center justify-center">
-        <AvatarWithOrbit
-          style={{ width: 'min(500px, 42vw)', height: 'min(500px, 42vw)' }}
-          imgSizes="42vw"
-        />
-      </div>
-
-      {/* Accent orb */}
-      <div className="absolute z-0 w-[700px] h-[700px] top-[-150px] left-[-250px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(245,158,11,0.06), transparent 70%)',
-          filter: 'blur(80px)',
-        }} />
-
-      {/* Content — left 64% on desktop, full width on mobile */}
-      <div className="relative z-10 w-full lg:w-[64%] min-h-screen flex flex-col
-        px-8 sm:px-12 lg:pl-[6%] lg:pr-14">
-
-        <div className="flex-1 flex flex-col justify-center py-8">
-
-          {/* Mobile avatar — only on small screens */}
-          <div className="lg:hidden flex justify-center mb-8 animate-fade-up opacity-0 animate-delay-100">
-            <AvatarWithOrbit
-              style={{ width: '170px', height: '170px' }}
-              imgSizes="170px"
-            />
+        {/* ── LEFT SIDEBAR ── */}
+        <div style={{
+          width: 248,
+          flexShrink: 0,
+          background: '#f8fafb',
+          borderRight: '1px solid rgba(5,150,105,0.1)',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '28px 20px',
+          gap: 18,
+          overflow: 'hidden',
+        }}>
+          {/* Avatar */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              position: 'relative',
+              width: 140,
+              height: 164,
+              borderRadius: 18,
+              overflow: 'hidden',
+              border: '2px solid rgba(5,150,105,0.35)',
+              boxShadow: '0 6px 24px rgba(5,150,105,0.15)',
+              flexShrink: 0,
+            }}>
+              <Image
+                src={personalInfo.avatarUrl}
+                alt="Nguyen Nghiem Thanh"
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="140px"
+              />
+            </div>
           </div>
 
-          {/* HEADLINE */}
-          <h1 className="animate-fade-up opacity-0 animate-delay-100 font-bold leading-[1.05] text-white"
-            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.75rem)' }}>
-            I build scalable<br />
-            web platforms<br />
-            <span style={{ color: 'var(--accent)' }}>from frontend to cloud</span>
-          </h1>
-
-          {/* NAME + ROLE */}
-          <div className="animate-fade-up opacity-0 animate-delay-200 mt-7">
-            <p className="font-bold text-xl text-white">Nguyen Nghiem Thanh</p>
-            <p className="text-sm font-mono mt-1" style={{ color: 'var(--accent)', opacity: 0.75 }}>
-              Senior Full-Stack Engineer · 8+ Years
+          {/* Contact cards */}
+          <div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(5,150,105,0.55)', marginBottom: 10 }}>
+              Get in touch
             </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+              {contactLinks.map(({ Icon, label, sub, href, external }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    padding: '9px 12px', borderRadius: 10,
+                    border: '1px solid rgba(5,150,105,0.14)',
+                    background: '#ffffff', textDecoration: 'none',
+                    transition: 'transform 0.15s',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-1px)')}
+                  onMouseLeave={e => (e.currentTarget.style.transform = '')}
+                >
+                  <div style={{
+                    width: 30, height: 30, borderRadius: 8, flexShrink: 0,
+                    background: 'rgba(5,150,105,0.08)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <Icon size={14} style={{ color: '#059669' }} />
+                  </div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{label}</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: '#64748b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sub}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* TECH */}
-          <p className="animate-fade-up opacity-0 animate-delay-400 mt-7 font-mono text-sm"
-            style={{ color: 'var(--accent)', opacity: 0.8 }}>
-            React · Angular&nbsp;&nbsp;/&nbsp;&nbsp;Node · Python · Java&nbsp;&nbsp;/&nbsp;&nbsp;Azure · SAP
-          </p>
-
-          {/* CTAs */}
-          <div className="animate-fade-up opacity-0 animate-delay-500 mt-8 flex flex-wrap gap-3">
-            <a
-              href="#contact"
-              className="btn-primary px-7 py-3"
-              style={{ boxShadow: '0 4px 24px color-mix(in srgb, var(--accent) 30%, transparent)' }}
-              onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-            >
-              Hire Me
-            </a>
-            <button
-              className="btn-outline px-7 py-3"
-              onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              See My Work
-            </button>
-          </div>
-
-          {/* Download CV — subtle quick-access row */}
-          <div className="animate-fade-up opacity-0 animate-delay-600 mt-4 flex items-center gap-4 text-xs font-mono"
-            style={{ color: 'rgba(255,255,255,0.45)' }}>
-            <span>Download CV:</span>
+          {/* Download buttons */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 'auto' }}>
             <a
               href={personalInfo.cvPdf}
               download="Nguyen-Nghiem-Thanh-CV.pdf"
-              className="flex items-center gap-1.5 hover:text-[color:var(--accent)] transition-colors duration-200"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+                padding: '10px 14px', borderRadius: 9,
+                background: '#059669', color: '#fff',
+                fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600,
+                textDecoration: 'none',
+                boxShadow: '0 3px 10px rgba(5,150,105,0.3)',
+              }}
             >
-              <Download size={11} /> PDF
+              <Download size={13} /> Download PDF
             </a>
-            <span style={{ color: 'rgba(255,255,255,0.2)' }}>·</span>
             <a
               href={personalInfo.cvDocx}
               download="Nguyen-Nghiem-Thanh-CV.docx"
-              className="flex items-center gap-1.5 hover:text-[color:var(--accent)] transition-colors duration-200"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+                padding: '10px 14px', borderRadius: 9,
+                border: '1.5px solid rgba(5,150,105,0.4)', color: '#059669',
+                fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600,
+                textDecoration: 'none',
+              }}
             >
-              <Download size={11} /> Word
+              <Download size={13} /> Word
             </a>
           </div>
-
-          {/* TRUST LINE */}
-          <p className="animate-fade-up opacity-0 animate-delay-600 mt-4 text-xs font-mono"
-            style={{ color: 'rgba(255,255,255,0.5)' }}>
-            Trusted by enterprise clients · Built scalable production systems
-          </p>
         </div>
 
-        {/* Stats bar */}
-        <div className="pb-12 animate-fade-up opacity-0 animate-delay-600">
-          <div className="h-px mb-8" style={{ background: 'rgba(255,255,255,0.1)' }} />
+        {/* ── CENTER ── */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '28px 40px 22px',
+          minWidth: 0,
+          minHeight: 0,
+          background: '#ffffff',
+          overflow: 'hidden',
+        }}>
 
-          <div className="grid grid-cols-4 gap-4 mb-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="group cursor-default">
-                <div
-                  className="font-mono font-bold transition-colors duration-200 group-hover:opacity-80"
-                  style={{ color: 'var(--accent)', fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}
-                >
-                  {stat.value}
+          {/* TOP: header info */}
+          <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 11, marginBottom: 14 }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(5,150,105,0.6)', margin: 0 }}>
+              01 / Cover
+            </p>
+            <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 3.4rem)', fontWeight: 700, lineHeight: 1.12, color: '#0f172a', margin: 0 }}>
+              Nguyen Nghiem Thanh
+            </h1>
+            <div>
+              <p style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: 'clamp(1rem, 1.5vw, 1.25rem)', color: '#059669', margin: '0 0 3px' }}>
+                Senior Full-Stack Engineer
+              </p>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: 14, color: '#64748b', margin: 0 }}>
+                8+ Years · Enterprise &amp; B2B Platforms
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {['React', 'Angular', 'Next.js', 'Node.js', 'Python', 'Java', 'Azure', 'SAP', 'ETL', 'ERP'].map(t => (
+                <span key={t} style={{
+                  padding: '4px 12px', borderRadius: 20, fontSize: 12,
+                  fontFamily: 'var(--font-mono)',
+                  border: '1px solid rgba(5,150,105,0.22)',
+                  color: '#475569', background: '#f0fdf4',
+                }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div style={{ height: 1, background: 'rgba(5,150,105,0.12)' }} />
+            <p style={{ fontSize: 14, lineHeight: 1.65, color: '#334155', margin: 0 }}>
+              {personalInfo.description}
+            </p>
+            <div style={{ height: 1, background: 'rgba(5,150,105,0.12)' }} />
+          </div>
+
+          {/* MIDDLE: skills — grows to fill remaining space */}
+          <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 14 }}>
+            {skillCategories.map(cat => (
+              <div key={cat.key} style={{
+                padding: '16px 18px', borderRadius: 12,
+                background: '#f8fafb',
+                border: '1px solid rgba(5,150,105,0.1)',
+                display: 'flex', flexDirection: 'column',
+                overflow: 'hidden',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 11, flexShrink: 0 }}>
+                  <div style={{
+                    width: 30, height: 30, borderRadius: 8, fontSize: 15,
+                    background: 'rgba(5,150,105,0.1)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                  }}>
+                    {cat.icon}
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#059669', fontFamily: 'var(--font-mono)' }}>
+                    {cat.label}
+                  </span>
                 </div>
-                <div className="text-[11px] text-[color:var(--text-muted)] uppercase tracking-wider leading-tight mt-1">
-                  {stat.label}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignContent: 'flex-start' }}>
+                  {skills[cat.key].map(skill => (
+                    <span key={skill} style={{
+                      fontSize: 12, padding: '4px 9px', borderRadius: 6,
+                      background: '#ffffff',
+                      border: '1px solid rgba(5,150,105,0.16)',
+                      color: '#334155',
+                      fontFamily: 'var(--font-mono)',
+                    }}>
+                      {skill}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="flex gap-5">
-            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-mono transition-colors text-white/50 hover:text-[color:var(--accent)]">
-              <GitHubIcon size={15} /> GitHub
-            </a>
-            <span className="text-white/15">|</span>
-            <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-mono transition-colors text-white/50 hover:text-[color:var(--accent)]">
-              <Linkedin size={15} /> LinkedIn
-            </a>
+          {/* BOTTOM: stats + CTA */}
+          <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ height: 1, background: 'rgba(5,150,105,0.12)' }} />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+              {stats.map(s => (
+                <div key={s.label} style={{
+                  padding: '12px 14px', borderRadius: 10,
+                  background: '#f0fdf4', border: '1px solid rgba(5,150,105,0.12)',
+                }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 'clamp(1.3rem, 1.8vw, 1.7rem)', color: '#059669' }}>
+                    {s.value}
+                  </div>
+                  <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#94a3b8', marginTop: 3 }}>
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate(current + 1)}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            >
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, color: '#0f172a' }}>
+                Open my portfolio
+              </span>
+              <div style={{
+                width: 36, height: 36, borderRadius: '50%',
+                background: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(5,150,105,0.3)',
+                transition: 'transform 0.2s',
+              }}
+                onMouseEnter={e => (e.currentTarget.style.transform = 'translateX(4px)')}
+                onMouseLeave={e => (e.currentTarget.style.transform = '')}
+              >
+                <ArrowRight size={16} color="#fff" />
+              </div>
+            </button>
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
   )

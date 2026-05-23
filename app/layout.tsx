@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${jetbrainsMono.variable} dark`}
+      className={`${dmSans.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-[color:var(--bg)] text-[color:var(--text)] transition-colors duration-300">

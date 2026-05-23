@@ -39,7 +39,7 @@ export function PerformanceMindset() {
     <section
       id="performance"
       ref={ref}
-      className="section-padding"
+      className="section-padding book-page"
       style={{ background: 'var(--bg-secondary)' }}
     >
       <div className="container-max">

@@ -179,7 +179,7 @@ export function Projects() {
   }
 
   return (
-    <section id="projects" ref={ref} className="section-padding"
+    <section id="projects" ref={ref} className="section-padding book-page"
       style={{ background: 'var(--bg-secondary)' }}>
       <div className="container-max">
 

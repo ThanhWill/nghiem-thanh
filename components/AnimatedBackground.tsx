@@ -61,11 +61,11 @@ export function AnimatedBackground() {
     }
 
     const STAR_COLORS = [
-      'rgba(245,158,11,',
-      'rgba(251,191,36,',
-      'rgba(255,255,220,',
-      'rgba(249,115,22,',
-      'rgba(253,230,138,',
+      'rgba(0,177,79,',
+      'rgba(74,222,128,',
+      'rgba(0,210,100,',
+      'rgba(134,239,172,',
+      'rgba(0,255,127,',
     ]
 
     const W = canvas.width
@@ -101,7 +101,7 @@ export function AnimatedBackground() {
         rx: 120 + rand() * 300,
         ry: 80 + rand() * 200,
         opacity: 0.015 + rand() * 0.025,
-        color: rand() < 0.5 ? 'rgba(245,158,11,' : 'rgba(249,115,22,',
+        color: rand() < 0.5 ? 'rgba(0,177,79,' : 'rgba(0,210,100,',
       })
     }
 
@@ -139,7 +139,7 @@ export function AnimatedBackground() {
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(245,158,11,${alpha.toFixed(3)})`
+            ctx.strokeStyle = `rgba(0,177,79,${alpha.toFixed(3)})`
             ctx.lineWidth = 0.6
             ctx.stroke()
           }

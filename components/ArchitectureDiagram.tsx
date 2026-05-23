@@ -148,7 +148,7 @@ export function ArchitectureDiagram() {
             <Box label="API Gateway" sublabel="Auth · Routing · Rate Limit" color="#7c3aed" wide />
             <BranchDown count={3} narrow />
             <div className="flex gap-2">
-              <Box label="Product" sublabel="Spring Boot" color="#f89820" small />
+              <Box label="Product" sublabel="Spring Boot" color="#16a34a" small />
               <Box label="Payment" sublabel="T-Wallet" color="#ef4444" small />
               <Box label="Inventory" sublabel="Spring Boot" color="#0ea5e9" small />
             </div>
@@ -163,7 +163,7 @@ export function ArchitectureDiagram() {
         <ArrowDown label="ETL · Transform" />
 
         {/* ── Row 4: Integration ── */}
-        <Box label="Apache Camel" sublabel="Data Integration Layer" color="#d97706" wide />
+        <Box label="Apache Camel" sublabel="Data Integration Layer" color="#16a34a" wide />
 
         <BranchDown count={4} narrow />
 

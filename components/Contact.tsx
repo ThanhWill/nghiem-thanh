@@ -36,7 +36,7 @@ export function Contact() {
     <section
       id="contact"
       ref={ref as React.RefObject<HTMLElement>}
-      className="section-padding"
+      className="section-padding book-page"
     >
       <div className="container-max">
         {/* Header */}
